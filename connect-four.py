@@ -27,7 +27,7 @@ class ConnectFour:
     def check_if_valid_move(self, column):
         return self.board[self.ROWS - 1][column] == self.EMPTY
 
-    def get_location(self, column):
+    def get_location_to_add_piece(self, column):
 
         for row in range(self.ROWS):
             if self.board[row][column] == self.EMPTY:
@@ -90,7 +90,7 @@ class ConnectFour:
                     break
 
                 if self.check_if_valid_move(choice):
-                    row = self.get_location(choice)
+                    row = self.get_location_to_add_piece(choice)
 
                     self.board[row][choice] = self.PLAYER_1_CHOICE
 
@@ -117,7 +117,7 @@ class ConnectFour:
                     break
 
                 if self.check_if_valid_move(choice):
-                    row = self.get_location(choice)
+                    row = self.get_location_to_add_piece(choice)
 
                     self.board[row][choice] = self.PLAYER_2_CHOICE
 
