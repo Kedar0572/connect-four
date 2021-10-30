@@ -71,6 +71,7 @@ class ConnectFour:
 
     def start(self):
 
+        # Start the Game
         self.show()
 
         while not self.GAME_OVER:
@@ -89,7 +90,7 @@ class ConnectFour:
                         self.show()
 
                         print("---------------------------------")
-                        print("\nPlayer 1 won\n")
+                        print(f"\nPlayer 1 ({self.PLAYER_1_CHOICE}) won.\n")
                         print("---------------------------------")
                         exit()
 
@@ -106,7 +107,7 @@ class ConnectFour:
                     if self.check_if_player_won(self.PLAYER_2_CHOICE):
                         self.show()
                         print("---------------------------------")
-                        print("\nPlayer 2 won\n")
+                        print(f"\nPlayer 2  ({self.PLAYER_2_CHOICE})  won.\n")
                         print("---------------------------------")
                         exit()
 
