@@ -78,13 +78,21 @@ class ConnectFour:
 
             # ask player 1 input
             if self.turn == 0:
-                col = (
-                    int(input(f"\n\nPlayer 1 make your selection (1-{self.COLUMNS}): ")) - 1)
 
-                if self.check_if_valid_move(col):
-                    row = self.get_location(col)
+                try:
+                    choice = (
+                        int(input(f"\n\nPlayer 1 make your selection (1-{self.COLUMNS}): ")) - 1)
 
-                    self.board[row][col] = self.PLAYER_1_CHOICE
+                    if not (choice > 0 and choice < COLUMNS):
+                        raise ValueError("Wrong Choice")
+                except ValueError as e:
+                    print("Wrong Choice!")
+                    break
+
+                if self.check_if_valid_move(choice):
+                    row = self.get_location(choice)
+
+                    self.board[row][choice] = self.PLAYER_1_CHOICE
 
                     if self.check_if_player_won(self.PLAYER_1_CHOICE):
                         self.show()
@@ -96,13 +104,22 @@ class ConnectFour:
 
             # ask player 2 input
             else:
-                col = (
-                    int(input(f"\n\nPlayer 2 make your selection (1-{self.COLUMNS}): ")) - 1)
 
-                if self.check_if_valid_move(col):
-                    row = self.get_location(col)
+                try:
+                    choice = (
+                        int(input(f"\n\nPlayer 2 make your selection (1-{self.COLUMNS}): ")) - 1)
 
-                    self.board[row][col] = self.PLAYER_2_CHOICE
+                    if not (choice > 0 and choice < COLUMNS):
+                        raise ValueError("Wrong Choice")
+
+                except ValueError as e:
+                    print("Wrong Choice!")
+                    break
+
+                if self.check_if_valid_move(choice):
+                    row = self.get_location(choice)
+
+                    self.board[row][choice] = self.PLAYER_2_CHOICE
 
                     if self.check_if_player_won(self.PLAYER_2_CHOICE):
                         self.show()
@@ -120,7 +137,17 @@ print("Welcome to Game of Connect Four\n")
 
 
 ROWS = int(input("Enter Number of Rows: "))
+
+while ROWS < 1:
+    print("Number of rows cannot be less then 1")
+    ROWS = int(input("Enter Number of Rows: "))
+
 COLUMNS = int(input("Enter Number of Columns: "))
+
+while COLUMNS < 1:
+    print("Number of columns cannot be less then 1")
+    COLUMNS = int(input("Enter Number of Columns: "))
+
 
 print("\nChoose Color for player 1")
 choice = int(input("(Choose 0 for red ('r') and 1 for yellow ('y')) :"))
@@ -141,9 +168,10 @@ else:
 
 PIECES = int(input("\nEnter Number of Pieces to Win:"))
 
-if PIECES > ROWS and PIECES > COLUMNS:
-    print("Pieces cannot be greater then rows and columns")
-    exit()
+
+while PIECES < 1 or (PIECES > ROWS and PIECES > COLUMNS):
+    print("Pieces cannot be less then 1 and greater rows and columns")
+    PIECES = int(input("\nEnter Number of Pieces to Win:"))
 
 game = ConnectFour(ROWS, COLUMNS, PLAYER_1_CHOICE, PLAYER_2_CHOICE, PIECES)
 game.start()
