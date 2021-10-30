@@ -1,4 +1,5 @@
 import numpy as np
+import argparse as arg
 
 
 class ConnectFour:
@@ -136,42 +137,37 @@ class ConnectFour:
 print("Welcome to Game of Connect Four\n")
 
 
-ROWS = int(input("Enter Number of Rows: "))
+if __name__ == "__main__":
+    parser = arg.ArgumentParser(description="Connect 4 Game")
+    parser.add_argument("-r", "--row", type=int, default=6,
+                        help="Number of Rows")
+    parser.add_argument("-c", "--column", type=int,
+                        default=7, help="Number of Columns")
+    parser.add_argument("-p", "--pieces", type=int, default=4,
+                        help="Number of Pieces to win")
+    parser.add_argument("-p1", "--player1_color", type=str,
+                        default='r', help="Player 1 Color")
+    parser.add_argument("-p2", "--player2_color", type=str,
+                        default='y', help="Player 2 Color")
+    args = parser.parse_args()
 
-while ROWS < 1:
-    print("Number of rows cannot be less then 1")
-    ROWS = int(input("Enter Number of Rows: "))
+    ROWS = args.row
+    COLUMNS = args.column
+    PIECES = args.pieces
+    PLAYER_1_CHOICE = args.player1_color
+    PLAYER_2_CHOICE = args.player2_color
 
-COLUMNS = int(input("Enter Number of Columns: "))
+    if ROWS < 1:
+        print("Number of rows cannot be less then 1")
+        exit()
 
-while COLUMNS < 1:
-    print("Number of columns cannot be less then 1")
-    COLUMNS = int(input("Enter Number of Columns: "))
+    if COLUMNS < 1:
+        print("Number of columns cannot be less then 1")
+        exit()
 
+    if PIECES < 1 or (PIECES > ROWS and PIECES > COLUMNS):
+        print("Pieces cannot be less then 1 and greater rows and columns")
+        exit()
 
-print("\nChoose Color for player 1")
-choice = int(input("(Choose 0 for red ('r') and 1 for yellow ('y')) :"))
-
-if choice == 0:
-    PLAYER_1_CHOICE = 'r'
-    PLAYER_2_CHOICE = 'y'
-    print(f"\nPlayer 1 is RED ('r') \nPlayer 2 is YELLOW ('y')")
-
-elif choice == 1:
-    PLAYER_1_CHOICE = 'y'
-    PLAYER_2_CHOICE = 'r'
-    print(f"\nPlayer 1 is YELLOW ('y')\nPlayer 2 is RED ('r')")
-
-else:
-    print("\nWrong Choice")
-    exit()
-
-PIECES = int(input("\nEnter Number of Pieces to Win:"))
-
-
-while PIECES < 1 or (PIECES > ROWS and PIECES > COLUMNS):
-    print("Pieces cannot be less then 1 and greater rows and columns")
-    PIECES = int(input("\nEnter Number of Pieces to Win:"))
-
-game = ConnectFour(ROWS, COLUMNS, PLAYER_1_CHOICE, PLAYER_2_CHOICE, PIECES)
-game.start()
+    game = ConnectFour(ROWS, COLUMNS, PLAYER_1_CHOICE, PLAYER_2_CHOICE, PIECES)
+    game.start()
