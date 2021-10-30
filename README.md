@@ -2,7 +2,7 @@
 
 ## connect-four.py
 
-### Connect four game with normal arguments
+### Connect four game with normal cmd line input.
 
 ## connect-four-cmd-line-args.py
 
